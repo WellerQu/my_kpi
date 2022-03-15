@@ -1,8 +1,8 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # author: qiuwei
 # since: 2022年03月09日
-# version: 1.2.4
+# version: 1.3.0
 # license: MIT
 
 set -e
@@ -34,7 +34,7 @@ function statistic(){
     # current branch
     local current=''
 
-    for dir in ${work_spaces}
+    for dir in ${work_spaces[@]}
     do
         cd $dir
 
@@ -56,14 +56,14 @@ function statistic(){
         do
             git checkout ${branch} > /dev/null 2>&1
             git log \
-                --author="$author" \
-                --pretty=tformat: \
-                --numstat  \
                 --since="$start" \
                 --until="$end" \
                 --max-parents=1 \
+                --author="$author" \
+                --pretty=format: \
+                --numstat  \
                 | grep -Ev $ignores\
-                | awk  -v d=$dir '{printf "%s\t%s\t%s/%s\n", $1, $2, d, $3}'
+                | awk  -v d=$dir '{if ($1~/[0123456789]+/) printf "%s\t%s\t%s/%s\n", $1, $2, d, $3}'
         done
 
         # restore WIP working
@@ -72,7 +72,7 @@ function statistic(){
         stash=`git stash list | grep KPI_stat | head -n 1 | awk -F ':' '{print $1}'`
 
         if [ "${stash}" != "" ]; then
-            git stash pop ${stash}
+            git stash pop ${stash} >/dev/null 2>&1
         fi
     done
 }
@@ -117,7 +117,7 @@ function main(){
     echo -e "\033[1m统计范围\033[0m"
     local current=`pwd`
     echo -e "\033[1;30mcurrent is ${current}, stat in follow-up directories (total ${#work_spaces[*]}):\033[0m"
-    for dir in $work_spaces
+    for dir in ${work_spaces[@]}
     do 
         cd $dir
         local project_name=`git remote -v | grep bizseer | grep push | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'`
@@ -138,15 +138,15 @@ function main(){
 
     echo ""
 
-    echo "\033[44;37m当日统计\033[0m `display daily`"
+    echo -e "\033[44;37m当日统计\033[0m `display daily`"
 
     echo ""
 
-    echo "\033[44;37m当周统计\033[0m `display weekly`"
+    echo -e "\033[44;37m当周统计\033[0m `display weekly`"
 
     echo ""
 
-    echo "\033[44;37m当月统计\033[0m `display monthly`"
+    echo -e "\033[44;37m当月统计\033[0m `display monthly`"
 
     echo ""
 
