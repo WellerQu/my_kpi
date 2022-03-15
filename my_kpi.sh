@@ -83,7 +83,7 @@ function daily() {
     local end="`date -v+1d +%Y-%m-%d` 00:00:00"
 
     #echo $start $end
-    statistic $start $end
+    statistic "$start" "$end"
 }
 
 function weekly(){
@@ -92,7 +92,7 @@ function weekly(){
     local next_sunday="`date -v +Sun +%Y-%m-%d` 00:00:00"
 
     #echo $sunday $next_sunday
-    statistic $sunday $next_sunday
+    statistic "$sunday" "$next_sunday"
 }
 
 function monthly(){
@@ -101,7 +101,7 @@ function monthly(){
     local last="`date -v+1m +%Y-%m`-01 00:00:00"
 
     #echo $first $last
-    statistic $first $last
+    statistic "$first" "$last"
 }
 
 function display(){
