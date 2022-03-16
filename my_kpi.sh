@@ -7,11 +7,24 @@
 set -e
 #set -x
 
-if [ -f './conf.sh' ]; then
-  source ./conf.sh
+cmd=$0
+
+# resolve $cmd until the file is no longer a symlink
+while [ -h "$cmd"  ]; do
+    dir="$( cd -P "$( dirname "$cmd"  )" && pwd  )"
+    cmd="$(readlink "$cmd")"
+    [[ $cmd != /*  ]] && SOURCE="$dir/$cmd"
+done
+
+dir="$( cd -P "$( dirname "$cmd"  )" && pwd  )"
+conf=$dir/conf.sh
+
+# load conf.sh to get user's configuraion
+if [ -f $conf ]; then
+    source $conf
 else
-  echo -e "\033[31mmissing conf\033[0m, refer: https://github.com/WellerQu/my_kpi"
-  exit 1
+    echo -e "\033[31mmissing conf\033[0m, refer: https://github.com/WellerQu/my_kpi"
+    exit 1
 fi
 
 # statistic function
