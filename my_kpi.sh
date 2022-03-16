@@ -105,7 +105,7 @@ function monthly(){
 }
 
 function display(){
-    $1 | awk '{ add += $1; subs += $2; loc += $1 - $2; upd += $1 + $2  } END { printf "新增行数: %s, 删除行数: %s, 有效行数: %s, 变更行数: \033[32m%s\033[0m\n", add, subs, loc, upd  }' - 
+    $1 | awk '{ add += $1; subs += $2; loc += $1 - $2; upd += $1 + $2  } END { printf "新增行数: %s, 删除行数: %s, 有效行数: \033[32m%s\033[0m, 变更行数: \033[32m%s\033[0m\n", add, subs, loc, upd  }' - 
 }
 
 #main
