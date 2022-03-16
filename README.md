@@ -9,7 +9,19 @@ git clone git@github.com:WellerQu/my_kpi.git && cd $_
 vim my_kpi.sh
 ```
 
-参照示例修改 **work_spaces**, **author**, **ignores** 配置项.
+参照示例配置文件示例 `conf.example.sh` 在 `my_kpi.sh` 文件同级目录下创建配置文件 `conf.sh`, 结构如下:
+
+```shell
+.
+├── LICENSE
+├── README.md
+├── conf.example.sh
+├── conf.sh
+├── imgs
+└── my_kpi.sh
+```
+
+修改配置文件 `conf.sh` 中的配置项 **work_spaces**, **author**, **ignores**.
 
 | 配置项 | 类型 | 描述 |
 | -- | -- | -- |
