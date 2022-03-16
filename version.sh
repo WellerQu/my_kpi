@@ -57,3 +57,4 @@ git commit -m "update version to $newVersion"
 git tag -a "$newVersion" -m "update version to $newVersion"
 
 # v1.3.1
+# v1.4.0
