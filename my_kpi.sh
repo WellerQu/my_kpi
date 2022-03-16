@@ -2,7 +2,6 @@
 
 # author: qiuwei
 # since: 2022年03月09日
-# version: 1.3.1
 # license: MIT
 
 set -e

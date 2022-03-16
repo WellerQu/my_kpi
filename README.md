@@ -4,30 +4,39 @@
 
 ## 使用方法
 
-```shell
-git clone git@github.com:WellerQu/my_kpi.git && cd $_
-vim my_kpi.sh
-```
+- step 0
 
-参照示例配置文件示例 `conf.example.sh` 在 `my_kpi.sh` 文件同级目录下创建配置文件 `conf.sh`, 结构如下:
+  ```shell
+  git clone git@github.com:WellerQu/my_kpi.git && cd $_
+  vim my_kpi.sh
+  ```
 
-```shell
-.
-├── LICENSE
-├── README.md
-├── conf.example.sh
-├── conf.sh
-├── imgs
-└── my_kpi.sh
-```
+- step 1
 
-修改配置文件 `conf.sh` 中的配置项 **work_spaces**, **author**, **ignores**.
+  参照示例配置文件示例 `conf.example.sh` 在 `my_kpi.sh` 文件同级目录下创建配置文件 `conf.sh`, 结构如下:
 
-| 配置项 | 类型 | 描述 |
-| -- | -- | -- |
-| `work_spaces` | 数组 | 需要被统计的目录, 该目录直接子级目录中应包含 .git 目录 |
-| `author` | 字符串 | gitconfig 中的 username |
-| `ignores` | 正则字符串 | 如果文件路径符合$ignores的描述, 则该文件的变更行数不会被纳入统计 |
+  ```shell
+  .
+  ├── LICENSE
+  ├── README.md
+  ├── conf.example.sh
+  ├── conf.sh
+  ├── imgs
+  ├── ... other files
+  └── my_kpi.sh
+  ```
+
+  修改配置文件 `conf.sh` 中的配置项 **work_spaces**, **author**, **ignores**.
+
+  | 配置项 | 类型 | 描述 |
+  | -- | -- | -- |
+  | `work_spaces` | 数组 | 需要被统计的目录, 该目录直接子级目录中应包含 .git 目录 |
+  | `author` | 字符串 | gitconfig 中的 username |
+  | `ignores` | 正则字符串 | 如果文件路径符合$ignores的描述, 则该文件的变更行数不会被纳入统计 |
+
+- step 2
+
+  执行 `./my_kpi.sh` 脚本
 
 ## 代码行数计算逻辑
 
