@@ -13,12 +13,6 @@ if [ "$semantic" == "" ]; then
   exit 0
 fi
 
-# 检查是否有未提交的内容
-if [ $(git status --porcelain | wc -l) -ne 0 ]; then
-  echo "need to commit all of work"
-  exit 1
-fi
-
 # 格式化当前版本
 version=($(echo ${version_str:3} | tr "." "\n"))
 major=${version[0]}
@@ -48,8 +42,14 @@ fi
 
 newVersion="v$newMajor.$newMinor.$newPatch"
 
+# 检查是否有未提交的内容
+if [ $(git status --porcelain | wc -l) -ne 0 ]; then
+  echo "need to commit all of work"
+  exit 1
+fi
+
 # 输出到文件
-echo -e "\r\n# $newVersion" >> ./version.sh
+printf "\n# $newVersion" >> ./version.sh
 
 # 更新 git 记录
 git add .
@@ -58,5 +58,4 @@ git tag -a "$newVersion" -m "update version to $newVersion"
 
 # v1.3.1
 # v1.4.0
-
 # v1.4.1
