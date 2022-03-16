@@ -113,6 +113,7 @@ function display(){
 #main
 function main(){
     echo -e "\033[4mREPORT KPI\033[0m for ${author}"
+    echo -e "\033[1;30mWelcome to star https://github.com/WellerQu/my_kpi\033[0m"
 
     echo ""
 
@@ -152,8 +153,8 @@ function main(){
 
     echo ""
 
-    echo "Work life balance"
-    echo -e "\033[1;30mGenreate this report at `date +"%Y-%m-%d %H:%M:%S"` forever @copyleft\033[0m"
+    echo -e "\033[1;30mGenreate this report at `date +"%Y-%m-%d %H:%M:%S"`\033[0m"
+    echo -e "\033[1;30mforever @copyleft\033[0m"
 }
 
 # run main
