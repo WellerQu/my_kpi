@@ -8,7 +8,7 @@ semantic=$1
 version_str=`tail -n 1 ./version.sh`
 
 # 仅查看版本
-if [ $semantic == "" ]; then
+if [ "$semantic" == "" ]; then
   echo $version_str
   exit 0
 fi

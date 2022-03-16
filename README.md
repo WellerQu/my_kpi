@@ -4,14 +4,13 @@
 
 ## 使用方法
 
-- step 0
+- step 0 下载脚本
 
   ```shell
-  git clone git@github.com:WellerQu/my_kpi.git && cd $_
-  vim my_kpi.sh
+  git clone git@github.com:WellerQu/my_kpi.git
   ```
 
-- step 1
+- step 1 新建配置脚本
 
   参照示例配置文件示例 `conf.example.sh` 在 `my_kpi.sh` 文件同级目录下创建配置文件 `conf.sh`, 结构如下:
 
@@ -34,9 +33,10 @@
   | `author` | 字符串 | gitconfig 中的 username |
   | `ignores` | 正则字符串 | 如果文件路径符合$ignores的描述, 则该文件的变更行数不会被纳入统计 |
 
-- step 2
+- step 2 执行脚本
 
-  执行 `./my_kpi.sh` 脚本
+  执行 `./my_kpi.sh` 脚本获取统计信息
+  执行 `./version.sh` 脚本获取版本信息
 
 ## 代码行数计算逻辑
 
