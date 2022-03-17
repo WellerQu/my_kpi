@@ -7,12 +7,6 @@ set -e
 semantic=$1
 version_str=`tail -n 1 ./version.sh`
 
-# 仅查看版本
-if [ "$semantic" == "" ]; then
-  echo ${version_str:2}
-  exit 0
-fi
-
 # 格式化当前版本
 version=($(echo ${version_str:3} | tr "." "\n"))
 major=${version[0]}

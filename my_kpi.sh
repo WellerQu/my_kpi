@@ -17,7 +17,7 @@ done
 # resolve file's actual dirname
 dir="$( cd -P "$( dirname "$cmd"  )" && pwd  )"
 # resolve version
-version=$(bash $dir/version.sh)
+version=$(tail -n 1 $dir/version.sh)
 
 # load constants
 source $dir/constants.sh
