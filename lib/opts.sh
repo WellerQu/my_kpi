@@ -22,7 +22,7 @@ function help() {
     echo "        Display help information"
     echo ""
     echo "Star me, please"
-    echo "Powerby $CONS_REPO"
+    echo "Power by $CONS_REPO"
 }
 
 fully_mode=$CONS_FALSE # 0 简短信息模式, 1 完整信息模式

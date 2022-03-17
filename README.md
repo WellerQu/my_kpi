@@ -1,6 +1,6 @@
 # my_kpi
 
-![示例](https://raw.githubusercontent.com/WellerQu/my_kpi/main/imgs/12A15B25-EA11-44B0-AF7C-74ABFB643F8C.png)
+![示例](https://raw.githubusercontent.com/WellerQu/my_kpi/main/imgs/short_mode_preview.png)
 
 ## 使用方法
 
@@ -38,7 +38,30 @@
 
   执行 `./my_kpi.sh` 脚本获取统计信息
 
-  执行 `./version.sh` 脚本获取版本信息
+  执行 `./my_kpi.sh -h` 获取帮助信息
+
+  ```shell
+  my_kpi v1.7.0
+  A simple tool for stat your numbers of code lines
+
+  USAGE:
+      my_kpi [OPTIONS]
+
+  OPTIONS:
+      -f
+          Display complete information
+      -d
+          Display daily information
+      -w
+          Display weekly information
+      -m
+          Display monthly information
+      -h
+          Display help information
+
+  Star me, please
+  Power by https://github.com/WellerQu/my_kpi
+  ```
 
 ## 代码行数计算逻辑
 
