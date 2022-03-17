@@ -16,10 +16,13 @@ done
 
 # resolve file's actual dirname
 dir="$( cd -P "$( dirname "$cmd"  )" && pwd  )"
-conf=$dir/conf.sh
-lib=$dir/lib.sh
 
-# load conf.sh to get user's configuraion
+# resolve conf file path
+conf=$dir/conf.sh
+# resolve core lib path
+lib=$dir/lib
+
+# load conf.sh to get user's configuraion or show error
 if [ -f $conf ]; then
     source $conf
 else
@@ -27,8 +30,8 @@ else
     exit 1
 fi
 
-# load statistic logic
-source $lib
+# load core lib
+source $lib/statistic_logic.sh
 
 #main
 function main(){
