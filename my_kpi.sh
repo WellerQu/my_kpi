@@ -50,7 +50,7 @@ function statistic(){
 
         if [ $(git status --porcelain | wc -l) -ne 0 ]; then
             # save WIP working
-            git stash push -m 'KPI_stat' >/dev/null 2>&1
+            git stash push -m 'KPI_stat' > /dev/null 2>&1
         fi
 
         # get all local branch
@@ -69,12 +69,12 @@ function statistic(){
         done
 
         # restore WIP working
-        git checkout ${current} >/dev/null 2>&1
+        git checkout ${current} > /dev/null 2>&1
 
         stash=`git stash list | grep KPI_stat | head -n 1 | awk -F ':' '{print $1}'`
 
         if [ "${stash}" != "" ]; then
-            git stash pop ${stash} >/dev/null 2>&1
+            git stash pop ${stash} > /dev/null 2>&1
         fi
     done
 }
