@@ -19,6 +19,9 @@ dir="$( cd -P "$( dirname "$cmd"  )" && pwd  )"
 # resolve version
 version=$(bash $dir/version.sh)
 
+# load constants
+source $dir/constants.sh
+
 # load default theme
 source $dir/themes/default.sh
 
@@ -28,7 +31,7 @@ conf=$dir/conf.sh
 if [ -f $conf ]; then
     source $conf
 else
-    echo -e `colorize_error "missing conf file"` `colorize_primary_text "refer: https://github.com/WellerQu/my_kpi"`
+    echo -e `colorize_error "missing conf file"` `colorize_primary_text "refer: $CONS_REPO"`
     exit 1
 fi
 
@@ -44,50 +47,68 @@ source $dir/lib/opts.sh
 
 #main
 function main() {
-    echo -e `underline "REPORT KPI for ${author} ${version}"`
-    echo -e `colorize_second_text "Welcome to star https://github.com/WellerQu/my_kpi"`
+    # pass all of arguments, shell will be terminate if error occurs
+    opts $@
 
-    new_line
+    if [ "$help_mode" == "$CONS_TRUE" ]; then
+        help
+        exit 0
+    fi
 
-    echo -e `highlight "统计范围"`
-    local current=`pwd`
+    if [ "$fully_mode" == "$CONS_TRUE" ]; then
+        echo -e `underline "REPORT KPI for ${author} ${version}"`
+        echo -e `colorize_second_text "Welcome to star https://github.com/WellerQu/my_kpi"`
 
-    echo -e `colorize_second_text "current is ${current}, stat in follow-up directories (total ${#work_spaces[*]}):"`
-    for dir in ${work_spaces[@]}
-    do 
-        cd $dir
-        local project_name=`git remote -v | grep bizseer | grep push | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'`
+        new_line
 
-        echo -e `colorize_project_path "$dir"` `colorize_project_name "$project_name"`
+        echo -e `highlight "统计范围"`
+        local current=`pwd`
 
-        for branch in `git for-each-ref --format='%(refname:short)' refs/heads/`
-        do
-          echo -e `colorize_branch_name "$branch"`
+        echo -e `colorize_second_text "current is ${current}, stat in follow-up directories (total ${#work_spaces[*]}):"`
+        for dir in ${work_spaces[@]}
+        do 
+            cd $dir
+            local project_name=`git remote -v | grep bizseer | grep push | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'`
+
+            echo -e `colorize_project_path "$dir"` `colorize_project_name "$project_name"`
+
+            for branch in `git for-each-ref --format='%(refname:short)' refs/heads/`
+            do
+              echo -e `colorize_branch_name "$branch"`
+            done
         done
-    done
-    cd $current
+        cd $current
+
+        new_line
+
+        echo -e `highlight "忽略关键词"`
+        echo -e `colorize_primary_text "$ignores"`
+    fi
 
     new_line
 
-    echo -e `highlight "忽略关键词"`
-    echo -e `colorize_primary_text "$ignores"`
+    if [ "$stats_mode" == "0" ] || [ "$(($stats_mode & $CONS_DAILY_MODE))" == "$CONS_DAILY_MODE" ]; then
+      echo -e `colorize_tag "当日统计"` `display daily`
 
-    new_line
+      new_line
+    fi
 
-    echo -e `colorize_tag "当日统计"` `display daily`
+    if [ "$stats_mode" == "0" ] || [ "$(($stats_mode & $CONS_WEEKLY_MODE))" == "$CONS_WEEKLY_MODE" ]; then
+      echo -e `colorize_tag "当周统计"` `display weekly`
 
-    new_line
+      new_line
+    fi
 
-    echo -e `colorize_tag "当周统计"` `display weekly`
+    if [ "$stats_mode" == "0" ] || [ "$(($stats_mode & $CONS_MONTHLY_MODE))" == "$CONS_MONTHLY_MODE" ]; then
+      echo -e `colorize_tag "当月统计"` `display monthly`
 
-    new_line
+      new_line
+    fi
 
-    echo -e `colorize_tag "当月统计"` `display monthly`
-
-    new_line
-
-    echo -e `colorize_second_text "Genreate this report at $(date +"%Y-%m-%d %H:%M:%S")"`
-    echo -e `colorize_second_text "forever @copyleft"`
+    if [ "$fully_mode" == "$CONS_TRUE" ]; then
+        echo -e `colorize_second_text "Genreate this report at $(date +"%Y-%m-%d %H:%M:%S")"`
+        echo -e `colorize_second_text "forever @copyleft"`
+    fi
 }
 
 # run main
