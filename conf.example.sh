@@ -19,3 +19,12 @@ author=`whoami`
 # example: pakcage-lock|tsx
 # explain: will ignore package-lock.json and all the *.tsx files
 ignores="package-lock"
+
+# keywords to ignore branches
+# usage: use | to split all of the keywords
+# example: master|dev
+# explain: will ignore master and dev branch
+exclude_branches="test"
+
+# theme color
+theme="default"

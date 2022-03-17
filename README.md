@@ -34,6 +34,7 @@ NOTICE: 脚本执行过程中, 尽量不要 Ctrl-C 终端脚本执行, 否则可
   | `work_spaces`* | 数组 | 需要被统计的目录, 该目录直接子级目录中应包含 .git 目录 |
   | `author`* | 字符串 | gitconfig 中的 username |
   | `ignores`* | 正则字符串 | 如果文件路径符合$ignores的描述, 则该文件的变更行数不会被纳入统计 |
+  | `exclude_branches` | 正则字符串 | 如果分支名符合$exclude_branches的描述, 则该分支的任何改动都不会被纳入统计 |
   | `theme` | 字符串 | themes 目录下的文件名(不包含.sh), 默认 "default" |
 
 - step 2 执行脚本

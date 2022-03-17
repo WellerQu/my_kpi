@@ -30,6 +30,10 @@ conf=$dir/conf.sh
 # load conf.sh to get user's configuraion or show error
 if [ -f $conf ]; then
     source $conf
+
+    if [ "$exclude_branches" == "" ]; then
+        exclude_branches="test"
+    fi
 else
     echo -e `colorize_error "missing conf file"` `colorize_primary_text "refer: $CONS_REPO"`
     exit 1
@@ -72,7 +76,7 @@ function main() {
 
             echo -e `colorize_project_path "$dir"` `colorize_project_name "$project_name"`
 
-            for branch in `git for-each-ref --format='%(refname:short)' refs/heads/`
+            for branch in `git for-each-ref --format='%(refname:short)' refs/heads/ | grep -Ev "$exclude_branches"`
             do
               echo -e `colorize_branch_name "$branch"`
             done
@@ -83,6 +87,7 @@ function main() {
 
         echo -e `highlight "忽略关键词"`
         echo -e `colorize_primary_text "$ignores"`
+        echo -e `colorize_primary_text "$exclude_branches"`
     fi
 
     new_line

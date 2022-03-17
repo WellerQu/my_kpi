@@ -29,7 +29,7 @@ function statistic() {
         fi
 
         # get all local branch
-        for branch in `git for-each-ref --format='%(refname:short)' refs/heads/`
+        for branch in `git for-each-ref --format='%(refname:short)' refs/heads/ | grep -Ev "$exclude_branches"`
         do
             git checkout ${branch} > /dev/null 2>&1
             git log \
@@ -39,7 +39,7 @@ function statistic() {
                 --author="$author" \
                 --pretty=format: \
                 --numstat  \
-                | grep -Ev $ignores\
+                | grep -Ev "$ignores"\
                 | awk  -v d=$dir '{if ($1~/[0123456789]+/) printf "%s\t%s\t%s/%s\n", $1, $2, d, $3}'
         done
 
