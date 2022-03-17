@@ -62,3 +62,4 @@ git tag -a "$newVersion" -m "update version to $newVersion"
 # v1.4.2
 # v1.4.3
 # v1.5.0
+# v1.6.0
