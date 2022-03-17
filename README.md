@@ -40,7 +40,7 @@
 
   执行 `./my_kpi.sh -h` 获取帮助信息
 
-  ```shell
+  ```text
   my_kpi v1.7.0
   A simple tool for stat your numbers of code lines
 
