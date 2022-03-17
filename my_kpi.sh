@@ -57,7 +57,7 @@ function main() {
 
     if [ "$fully_mode" == "$CONS_TRUE" ]; then
         echo -e `underline "REPORT KPI for ${author} ${version}"`
-        echo -e `colorize_second_text "Welcome to star https://github.com/WellerQu/my_kpi"`
+        echo -e `colorize_second_text "Welcome to star $CONS_REPO"`
 
         new_line
 
