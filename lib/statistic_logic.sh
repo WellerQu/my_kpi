@@ -3,7 +3,7 @@
 # since: 2022年03月17日
 
 # statistic function
-function statistic(){
+function statistic() {
     # date range start
     local start=$1
     # date range end
@@ -63,7 +63,7 @@ function daily() {
     statistic "$start" "$end"
 }
 
-function weekly(){
+function weekly() {
     # this week
     local sunday="`date -v -Sun +%Y-%m-%d` 00:00:00"
     local next_sunday="`date -v +Sun +%Y-%m-%d` 00:00:00"
@@ -72,7 +72,7 @@ function weekly(){
     statistic "$sunday" "$next_sunday"
 }
 
-function monthly(){
+function monthly() {
     # this month
     local first="`date +%Y-%m`-01 00:00:00"
     local last="`date -v+1m +%Y-%m`-01 00:00:00"
@@ -81,6 +81,6 @@ function monthly(){
     statistic "$first" "$last"
 }
 
-function display(){
+function display() {
     $1 | awk '{ add += $1; subs += $2; loc += $1 - $2; upd += $1 + $2  } END { printf "新增行数: %s, 删除行数: %s, 有效行数: \033[32m%s\033[0m, 变更行数: \033[32m%s\033[0m\n", add, subs, loc, upd  }' - 
 }
