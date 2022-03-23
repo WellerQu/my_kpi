@@ -44,8 +44,10 @@ if [ "$theme" != "default" ] && [ -f "$dir/themes/$theme.sh" ]; then
     source $dir/themes/$theme.sh
 fi
 
-# load core lib
+# load stats lib
 source $dir/lib/statistic_logic.sh
+# load patch lib
+source $dir/lib/patch_logic.sh
 # load opts lib
 source $dir/lib/opts.sh
 
@@ -56,6 +58,11 @@ function main() {
 
     if [ "$help_mode" == "$CONS_TRUE" ]; then
         help
+        exit 0
+    fi
+
+    if [ "$patch_mode" == "$CONS_TRUE" ]; then
+        patch
         exit 0
     fi
 
@@ -92,19 +99,19 @@ function main() {
 
     new_line
 
-    if [ "$stats_mode" == "0" ] || [ "$(($stats_mode & $CONS_DAILY_MODE))" == "$CONS_DAILY_MODE" ]; then
+    if [ "$(($stats_mode & $CONS_DAILY_MODE))" == "$CONS_DAILY_MODE" ]; then
       echo -e `colorize_tag "当日统计"` `display daily`
 
       new_line
     fi
 
-    if [ "$stats_mode" == "0" ] || [ "$(($stats_mode & $CONS_WEEKLY_MODE))" == "$CONS_WEEKLY_MODE" ]; then
+    if [ "$(($stats_mode & $CONS_WEEKLY_MODE))" == "$CONS_WEEKLY_MODE" ]; then
       echo -e `colorize_tag "当周统计"` `display weekly`
 
       new_line
     fi
 
-    if [ "$stats_mode" == "0" ] || [ "$(($stats_mode & $CONS_MONTHLY_MODE))" == "$CONS_MONTHLY_MODE" ]; then
+    if [ "$(($stats_mode & $CONS_MONTHLY_MODE))" == "$CONS_MONTHLY_MODE" ]; then
       echo -e `colorize_tag "当月统计"` `display monthly`
 
       new_line

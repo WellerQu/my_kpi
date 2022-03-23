@@ -25,29 +25,39 @@ function help() {
     echo "Power by $CONS_REPO"
 }
 
+# 信息模式, 默认简短
 fully_mode=$CONS_FALSE # 0 简短信息模式, 1 完整信息模式
-stats_mode=0 # 0 all 1 daily 2 weekly 4 monthly
+# 统计模式, 默认日周月
+stats_mode=$(($CONS_DAILY_MODE | $CONS_WEEKLY_MODE | $CONS_MONTHLY_MODE)) # 0 NONE 1 daily 2 weekly 4 monthly
+# 帮助模式, 默认关
 help_mode=$CONS_FALSE
+# patch模式, 默认关
+patch_mode=$CONS_FALSE
 
 function opts() {
     OPTIND=1
 
-    while getopts "fdwmh" name; do
+    local mode=0
+
+    while getopts "fdwmhp" name; do
       case $name in
         f)
           fully_mode=1
         ;;
         d)
-          stats_mode=$(($stats_mode | $CONS_DAILY_MODE))
+          mode=$(($mode | $CONS_DAILY_MODE))
         ;;
         w)
-          stats_mode=$(($stats_mode | $CONS_WEEKLY_MODE))
+          mode=$(($mode | $CONS_WEEKLY_MODE))
         ;;
         m)
-          stats_mode=$(($stats_mode | $CONS_MONTHLY_MODE))
+          mode=$(($mode | $CONS_MONTHLY_MODE))
         ;;
         h)
           help_mode=$CONS_TRUE
+        ;;
+        p)
+          patch_mode=$CONS_TRUE
         ;;
         ?)
           help
@@ -55,6 +65,10 @@ function opts() {
         ;;
       esac
     done
+
+    if [ "$mode" != "0" ]; then
+        stats_mode=$mode
+    fi
 
     if [ "$(($OPTIND - 1))" != "$#" ]; then
         echo Error occurs on resolving arguments.
